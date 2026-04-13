@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo.png" alt="AI Shadow Writer logo" width="140">
+  <img src="docs/assets/logo.png" alt="AI Shadow Writer logo" width="600">
 </p>
 
 <h1 align="center">AI Shadow Writer</h1>
