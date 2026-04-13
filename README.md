@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo-placeholder.png" alt="AI Shadow Writer logo" width="140">
+  <img src="docs/assets/logo.png" alt="AI Shadow Writer logo" width="140">
 </p>
 
 <h1 align="center">AI Shadow Writer</h1>
@@ -17,7 +17,6 @@
   <img alt="Docs" src="https://img.shields.io/badge/docs-ready-1F2937">
 </p>
 
-> Replace `docs/assets/logo.png` with your real logo asset or external logo URL when the branding is finalized.
 
 AI Shadow Writer is a proprietary Telegram bot for channel admins who want faster drafting, cleaner publishing workflows, and more consistent channel voice without building a custom AI stack from scratch.
 
