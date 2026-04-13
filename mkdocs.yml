@@ -1,0 +1,23 @@
+site_name: AI Shadow Writer Docs
+site_description: Public-facing documentation structure for AI Shadow Writer
+site_author: Tenyokj
+docs_dir: docs
+nav:
+  - Home: index.md
+  - Overview: overview.md
+  - Features: features.md
+  - Setup Guide: setup.md
+  - Groq API Key Guide: groq-key.md
+  - Channel Connection: channel-connection.md
+  - Post Generation: post-generation.md
+  - Payments: payments.md
+  - Privacy: privacy.md
+  - FAQ: faq.md
+  - Troubleshooting: troubleshooting.md
+  - Architecture: architecture.md
+  - Deployment: deployment.md
+  - License Notes: license.md
+  - Contact: contact.md
+markdown_extensions:
+  - tables
+  - admonition

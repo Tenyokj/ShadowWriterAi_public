@@ -1,150 +1,60 @@
-# AI Shadow Writer Bot
+# AI Shadow Writer
 
-AI Shadow Writer is a Telegram bot for generating, refining, and publishing channel posts.
+AI Shadow Writer is a proprietary Telegram bot for channel admins who want faster drafting, cleaner publishing workflows, and more consistent channel voice without building a custom AI stack from scratch.
 
-## Features
+The bot helps you:
+- generate post drafts in your channel style
+- keep channel memory such as topic, audience, and author voice
+- connect your own Groq API key with a BYOK model
+- review, edit, regenerate, and publish posts inside Telegram
+- work with visuals, factual sources, and bilingual interface flows
 
-- `/start` — welcome message and product overview
-- `/help` — all commands in one place
-- `/setup` — first-time setup guide
-- `/faq` — common issues and quick fixes
-- `/about` — bot overview
-- `/admin` — admin panel for pricing and branding
-- `/groq_help` — step-by-step Groq API key guide
-- `/teach` — upload real channel post samples via forwarded messages
-- `/privacy` — short privacy and third-party API disclosure
-- `/language ru|en` — switch interface and generation language
-- `/connect` — connect a Telegram channel via a forwarded post or `channel_id`
-- `/profile` — fill channel memory: topic, audience, author persona, pillars, style
-- `/profile_show` — view the saved channel profile
-- `/buy` — unlock access with Telegram Stars
-- `/status` — check free usage and subscription status
-- `/post &lt;idea&gt;` — generate a richer post draft through Groq
-- automatic emoji placement inside AI-generated post drafts
-- automatic photo lookup from Pexels and Pixabay
-- replace the found photo with another one
-- upload your own photo for a specific draft
-- commands are registered automatically and appear in the Telegram slash menu
-- optional sticker publishing if sticker `file_id` values are configured
-- inline `Publish` button to send the approved post to the connected channel
+## Who It Is For
 
-## Installation
+AI Shadow Writer is designed for:
+- Telegram channel admins
+- solo creators
+- niche media channels
+- personal brand operators
+- small editorial teams
 
-```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-```
+## Why BYOK
 
-## Configuration
+The bot uses a bring-your-own-key model for AI generation. Each user connects a personal Groq API key through Telegram. This keeps AI usage under the user's control and avoids hiding model costs inside the bot itself.
 
-Create a `.env` file in the project root:
+## Quick Start
 
-```bash
-cp .env.example .env
-```
+1. Open the bot in Telegram and run `/start`.
+2. Use `/groq_help` if you need help creating a Groq API key.
+3. Connect your key with `/ai`.
+4. Add the bot to your channel as an admin with publishing rights.
+5. Connect the channel with `/connect`.
+6. Fill channel memory with `/profile`.
+7. Optionally improve style fit with `/teach`.
+8. Generate your first draft with `/post your idea`.
 
-Then open `.env` and set:
+## Documentation
 
-```env
-TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-APP_ENV=dev
-DATABASE_URL=
-WEBHOOK_BASE_URL=
-WEBHOOK_PATH=/webhook
-WEBHOOK_SECRET=
-GROQ_API_KEY=your_groq_api_key
-MASTER_ENCRYPTION_KEY=your_fernet_key
-PIXABAY_API_KEY=your_pixabay_api_key
-PEXELS_API_KEY=your_pexels_api_key
-GROQ_MODEL=llama-3.3-70b-versatile
-FREE_POSTS_LIMIT=5
-FREE_GENERATION_COOLDOWN_SECONDS=90
-MAX_UNIQUE_CHANNELS_FREE=3
-STARS_PRICE_14_DAYS=25
-STARS_PRICE_30_DAYS=40
-STARS_PRICE_90_DAYS=100
-GROQ_TUTORIAL_VIDEO_ID=
+- [Documentation Home](docs/index.md)
+- [Overview](docs/overview.md)
+- [Features](docs/features.md)
+- [Setup Guide](docs/setup.md)
+- [Groq API Key Guide](docs/groq-key.md)
+- [Channel Connection](docs/channel-connection.md)
+- [Post Generation](docs/post-generation.md)
+- [Payments](docs/payments.md)
+- [Privacy](docs/privacy.md)
+- [FAQ](docs/faq.md)
+- [Troubleshooting](docs/troubleshooting.md)
+- [Architecture](docs/architecture.md)
+- [Deployment](docs/deployment.md)
+- [License Notes](docs/license.md)
+- [Contact](docs/contact.md)
 
-# Optional sticker file_id values for different publication moods
-STICKER_FIRE_ID=
-STICKER_IDEA_ID=
-STICKER_NEWS_ID=
-STICKER_WOW_ID=
-BRAND_STICKER_ID=
-BRAND_ANIMATION_ID=
-ADMIN_USER_ID=123456789
-```
+## Public Docs Note
 
-Generate `MASTER_ENCRYPTION_KEY` with:
-
-```bash
-.venv/bin/python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
-```
-
-## Run
-
-```bash
-.venv/bin/python main.py
-```
-
-## Important Notes
-
-- The bot must be added to the target channel as an administrator.
-- The bot must have permission to publish posts in that channel.
-- After `/connect`, it is highly recommended to complete `/profile` once so the bot writes in the voice of that specific channel instead of sounding generic.
-- If `DATABASE_URL` is not set, the app uses the local SQLite file `shadow_writer.db`.
-- If `DATABASE_URL` is set, the app uses PostgreSQL and ignores local SQLite.
-- If `WEBHOOK_BASE_URL` is set, the bot runs in webhook mode. This is the recommended mode for Render.
-- If `WEBHOOK_BASE_URL` is empty, the bot falls back to polling. This is convenient for local development.
-- Use `APP_ENV=prod` for production so development and production environments do not get mixed up.
-- If `PEXELS_API_KEY` is set, photo search will use Pexels first.
-- If the selected photo is not good enough, use `Another photo` or upload your own image.
-- After `FREE_POSTS_LIMIT` free generations, the bot asks for Telegram Stars payment.
-- You can add a cooldown between free generations with `FREE_GENERATION_COOLDOWN_SECONDS`.
-- You can limit how many unique channels a free-tier account can connect with `MAX_UNIQUE_CHANNELS_FREE`.
-- If `BRAND_STICKER_ID` is set, the bot sends a branded sticker in `/start`.
-- If `BRAND_ANIMATION_ID` is set, the bot sends a branded GIF or animation in `/start`.
-- If `GROQ_TUTORIAL_VIDEO_ID` is set, the bot can show a Groq setup tutorial video in `/groq_help`.
-- `ADMIN_USER_ID` is the Telegram user ID of the bot owner who can access `/admin`.
-- Users can connect their own Groq API key through `/ai`, and generation will run on their personal Groq limits.
-- `MASTER_ENCRYPTION_KEY` is required for secure encrypted storage of user AI keys. It must be a valid Fernet key.
-- To improve writing quality, the bot stores real channel samples from `channel_post` updates and forwarded posts sent through `/teach`.
-
-## SQLite Backup
-
-Create a backup of the local SQLite database:
-
-```bash
-.venv/bin/python scripts/backup_sqlite.py
-```
-
-If the project already runs on PostgreSQL through `DATABASE_URL`, this script is not used. For production PostgreSQL, use your provider's backup tools.
-
-## Render Deployment Notes
-
-For Render, deploy this project as a Web Service.
-
-Recommended settings:
-
-- Build Command: `pip install -r requirements.txt`
-- Start Command: `python main.py`
-
-Required environment variables on Render:
-
-- `APP_ENV=prod`
-- `TELEGRAM_BOT_TOKEN`
-- `DATABASE_URL`
-- `WEBHOOK_BASE_URL=https://your-service-name.onrender.com`
-- `WEBHOOK_PATH=/webhook`
-- `WEBHOOK_SECRET=your_random_secret`
-- `MASTER_ENCRYPTION_KEY`
-- any API keys you actually use (`PIXABAY_API_KEY`, `PEXELS_API_KEY`, and so on)
-
-Optional health endpoints:
-
-- `/`
-- `/healthz`
+This repository contains the private product codebase. The documentation structure included here is suitable for extraction into a separate public documentation repository later.
 
 ## License
 
-This project is proprietary. See [LICENSE](LICENSE).
+AI Shadow Writer is proprietary software. The source code is not open source and is not licensed for public reuse, redistribution, or derivative deployment. See [LICENSE](LICENSE).
