@@ -1,4 +1,23 @@
-# AI Shadow Writer
+<p align="center">
+  <img src="docs/assets/logo-placeholder.png" alt="AI Shadow Writer logo" width="140">
+</p>
+
+<h1 align="center">AI Shadow Writer</h1>
+
+<p align="center">
+  A proprietary Telegram writing bot for channel admins who want faster drafting, stronger channel voice, and cleaner publishing workflows.
+</p>
+
+<p align="center">
+  <img alt="License" src="https://img.shields.io/badge/license-proprietary-black">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-Telegram-2AABEE">
+  <img alt="AI" src="https://img.shields.io/badge/AI-BYOK%20Groq-00A67E">
+  <img alt="Database" src="https://img.shields.io/badge/database-PostgreSQL%20%2F%20Supabase-3ECF8E">
+  <img alt="Hosting" src="https://img.shields.io/badge/hosting-Render-7B61FF">
+  <img alt="Docs" src="https://img.shields.io/badge/docs-ready-1F2937">
+</p>
+
+> Replace `docs/assets/logo.png` with your real logo asset or external logo URL when the branding is finalized.
 
 AI Shadow Writer is a proprietary Telegram bot for channel admins who want faster drafting, cleaner publishing workflows, and more consistent channel voice without building a custom AI stack from scratch.
 
@@ -8,6 +27,16 @@ The bot helps you:
 - connect your own Groq API key with a BYOK model
 - review, edit, regenerate, and publish posts inside Telegram
 - work with visuals, factual sources, and bilingual interface flows
+
+## Highlights
+
+- Telegram-native drafting and publishing workflow
+- BYOK AI model through a personal Groq API key
+- channel memory with profile-based context
+- sample-based style improvement through `/teach`
+- visual support with replace and upload flows
+- factual draft support with source-aware review where available
+- English and Russian interface support
 
 ## Who It Is For
 
