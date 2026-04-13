@@ -104,7 +104,7 @@ TEXTS: dict[str, dict[str, str]] = {
             "◦ поддерживает RU / EN\n"
             "◦ открывает доступ через Telegram Stars\n\n"
             "<b>◦ Автор</b>\n"
-            "Daniil · Shadow Writer AI"
+            "Tenyokj · Shadow Writer AI"
         ),
         "contacts_message": (
             "<b>Contacts</b>\n\n"
@@ -507,7 +507,7 @@ TEXTS: dict[str, dict[str, str]] = {
             "◦ bilingual workflow in EN / RU\n"
             "◦ Telegram Stars access model\n\n"
             "<b>◦ Author</b>\n"
-            "Daniil · Shadow Writer AI"
+            "Tenyokj · Shadow Writer AI"
         ),
         "contacts_message": (
             "<b>Creator Contacts</b>\n\n"
