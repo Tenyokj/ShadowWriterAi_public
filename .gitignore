@@ -1,0 +1,8 @@
+.env
+.venv/
+*.pyc
+shadow_writer.db
+__pycache__/
+**/__pycache__/
+.DS_Store
+backups/
