@@ -49,6 +49,9 @@ Then open `.env` and set:
 TELEGRAM_BOT_TOKEN=your_telegram_bot_token
 APP_ENV=dev
 DATABASE_URL=
+WEBHOOK_BASE_URL=
+WEBHOOK_PATH=/webhook
+WEBHOOK_SECRET=
 GROQ_API_KEY=your_groq_api_key
 MASTER_ENCRYPTION_KEY=your_fernet_key
 PIXABAY_API_KEY=your_pixabay_api_key
@@ -91,6 +94,8 @@ Generate `MASTER_ENCRYPTION_KEY` with:
 - After `/connect`, it is highly recommended to complete `/profile` once so the bot writes in the voice of that specific channel instead of sounding generic.
 - If `DATABASE_URL` is not set, the app uses the local SQLite file `shadow_writer.db`.
 - If `DATABASE_URL` is set, the app uses PostgreSQL and ignores local SQLite.
+- If `WEBHOOK_BASE_URL` is set, the bot runs in webhook mode. This is the recommended mode for Render.
+- If `WEBHOOK_BASE_URL` is empty, the bot falls back to polling. This is convenient for local development.
 - Use `APP_ENV=prod` for production so development and production environments do not get mixed up.
 - If `PEXELS_API_KEY` is set, photo search will use Pexels first.
 - If the selected photo is not good enough, use `Another photo` or upload your own image.
@@ -114,6 +119,31 @@ Create a backup of the local SQLite database:
 ```
 
 If the project already runs on PostgreSQL through `DATABASE_URL`, this script is not used. For production PostgreSQL, use your provider's backup tools.
+
+## Render Deployment Notes
+
+For Render, deploy this project as a Web Service.
+
+Recommended settings:
+
+- Build Command: `pip install -r requirements.txt`
+- Start Command: `python main.py`
+
+Required environment variables on Render:
+
+- `APP_ENV=prod`
+- `TELEGRAM_BOT_TOKEN`
+- `DATABASE_URL`
+- `WEBHOOK_BASE_URL=https://your-service-name.onrender.com`
+- `WEBHOOK_PATH=/webhook`
+- `WEBHOOK_SECRET=your_random_secret`
+- `MASTER_ENCRYPTION_KEY`
+- any API keys you actually use (`PIXABAY_API_KEY`, `PEXELS_API_KEY`, and so on)
+
+Optional health endpoints:
+
+- `/`
+- `/healthz`
 
 ## License
 

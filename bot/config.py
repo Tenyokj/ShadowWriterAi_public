@@ -1,6 +1,7 @@
 import os
 from dataclasses import dataclass
 from pathlib import Path
+from urllib.parse import urljoin
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +44,11 @@ class Settings:
     bot_token: str = os.getenv("TELEGRAM_BOT_TOKEN", DEFAULT_BOT_TOKEN)
     app_env: str = os.getenv("APP_ENV", "dev").lower()
     database_url: str = os.getenv("DATABASE_URL", "").strip()
+    webhook_base_url: str = os.getenv("WEBHOOK_BASE_URL", "").strip().rstrip("/")
+    webhook_path: str = os.getenv("WEBHOOK_PATH", "/webhook").strip() or "/webhook"
+    webhook_secret: str = os.getenv("WEBHOOK_SECRET", "").strip()
+    web_server_host: str = os.getenv("WEB_SERVER_HOST", "0.0.0.0")
+    web_server_port: int = int(os.getenv("PORT", os.getenv("WEB_SERVER_PORT", "8080")))
     groq_api_key: str = os.getenv("GROQ_API_KEY", DEFAULT_GROQ_API_KEY)
     master_encryption_key: str = os.getenv(
         "MASTER_ENCRYPTION_KEY",
@@ -75,6 +81,20 @@ class Settings:
     brand_animation_id: str = os.getenv("BRAND_ANIMATION_ID", "")
     admin_user_id: int = int(os.getenv("ADMIN_USER_ID", "0"))
     db_backup_dir: Path = BASE_DIR / "backups"
+
+    @property
+    def use_webhook(self) -> bool:
+        return bool(self.webhook_base_url)
+
+    @property
+    def normalized_webhook_path(self) -> str:
+        return self.webhook_path if self.webhook_path.startswith("/") else f"/{self.webhook_path}"
+
+    @property
+    def webhook_url(self) -> str:
+        if not self.webhook_base_url:
+            return ""
+        return urljoin(f"{self.webhook_base_url}/", self.normalized_webhook_path.lstrip("/"))
 
 
 settings = Settings()
